@@ -1,5 +1,5 @@
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Scanner;
 
 public class FileCrawler {
@@ -12,14 +12,16 @@ public class FileCrawler {
     String keyword = search.nextLine();
 
     // Check file and print result
-    Scanner readFile = new Scanner(new FileReader("./text.txt"));
+    File file = new File("text.txt");
+    Scanner readFile = new Scanner(file);
     while (readFile.hasNextLine()) {
       String match = readFile.next();
       if (match.matches(keyword)) {
-        System.out.println("Yay, found it!");
+        System.out.println("Yay, found it! Filepath: " + file.getAbsolutePath());
       }
     }
 
+    // Close scanners
     search.close();
     readFile.close();
 
