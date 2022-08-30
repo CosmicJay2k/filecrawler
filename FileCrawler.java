@@ -5,41 +5,41 @@ import java.util.Scanner;
 
 public class FileCrawler {
   public static void main(String[] args) {
-    System.out.println("What are you looking for?"); // Print user prompt.
+    System.out.println("What are you looking for?");
 
-    Scanner searchScanner = new Scanner(System.in); // Initialize Scanner for user input.
-    String keyword = searchScanner.nextLine().toLowerCase(); // Users chosen input (broken out for readability).
+    Scanner searchScanner = new Scanner(System.in);
+    String keyword = searchScanner.nextLine().toLowerCase();
 
-    searchFile(new File(System.getProperty("user.dir")), keyword); // Initialize File and run method for searching.
-    searchScanner.close(); // Close scanner after method is done.
+    searchFile(new File(System.getProperty("user.dir")), keyword);
+    searchScanner.close();
   }
 
-  private static void searchFile(File file, String search) { // Search method that takes a path and a search keyword.
-    if (file.isDirectory()) { // If path is a directory
-      File[] files = file.listFiles(); // Create array from files in directory.
+  private static void searchFile(File file, String search) {
+    if (file.isDirectory()) {
+      File[] files = file.listFiles();
       try {
-        for (File f : files) { // For each file in array
-          searchFile(f, search); // Run search method recursively.
+        for (File f : files) {
+          searchFile(f, search);
         }
-      } catch (Exception e) { // Handle all exceptions.
-        System.out.println("Error opening folder: " + file.getAbsolutePath()); // Print error message and path.
+      } catch (Exception e) {
+        System.out.println("Error opening folder: " + file.getAbsolutePath());
       }
 
     } else {
-      if (file.isFile()) { // If path is a file
+      if (file.isFile()) {
         try {
-          Scanner readFileScanner = new Scanner(file); // Initialize Scanner for looking in file.
-          while (readFileScanner.hasNextLine()) { // Iterate through the file.
-            if (readFileScanner.next().toLowerCase().matches(search)) { // If a word in the file matches search keyword
+          Scanner readFileScanner = new Scanner(file);
+          while (readFileScanner.hasNextLine()) {
+            if (readFileScanner.next().toLowerCase().matches(search)) {
               System.out.println("Yay, found " + search +
-                  "! Filepath: " + file.getAbsolutePath()); // Print success message and path.
+                  "! Filepath: " + file.getAbsolutePath());
             }
           }
 
-          readFileScanner.close(); // Close scanner after file has been iterated through.
-        } catch (FileNotFoundException e) { // Handle file not existing or cannot be opened.
-          System.out.println("Error opening file: " + file.getAbsolutePath()); // Print error message and path.
-        } catch (NoSuchElementException e) { // Handle file not containing search keyword.
+          readFileScanner.close();
+        } catch (FileNotFoundException e) {
+          System.out.println("Error opening file: " + file.getAbsolutePath());
+        } catch (NoSuchElementException e) {
         }
       }
     }
