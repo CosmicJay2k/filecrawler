@@ -8,7 +8,7 @@ public class FileCrawler {
         System.out.println("What are you looking for?");
 
         Scanner searchScanner = new Scanner(System.in);
-        String keyword = searchScanner.nextLine().toLowerCase();
+        String keyword = searchScanner.nextLine();
 
         searchFile(new File(System.getProperty("user.dir")), keyword);
         searchScanner.close();
@@ -30,7 +30,7 @@ public class FileCrawler {
                 try {
                     Scanner readFileScanner = new Scanner(file);
                     while (readFileScanner.hasNextLine()) {
-                        if (readFileScanner.next().toLowerCase().matches(search)) {
+                        if (readFileScanner.next().equalsIgnoreCase(search)) {
                             System.out.println("Yay, found " + search +
                                     "! Filepath: " + file.getAbsolutePath());
                         }
